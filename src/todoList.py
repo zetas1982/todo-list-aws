@@ -94,10 +94,10 @@ def update_item(key, text, checked, dynamodb=None):
             ReturnValues='ALL_NEW',
         )
 
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-    else:
-        return result['Attributes']
+    #except ClientError as e:
+    #    print(e.response['Error']['Message'])
+    #else:
+    #    return result['Attributes']
 
 
 def delete_item(key, dynamodb=None):
