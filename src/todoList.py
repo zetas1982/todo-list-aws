@@ -22,13 +22,9 @@ def get_table(dynamodb=None):
     return table
 
 
-def pruebatest(self):    
-    print ('---------------------')
-    print ('Start: pruebatest')
-    from src.todoList import put_item   
-    response = get_table(None)
-    print ('Response response:' + str(response))
-    print ('End: pruebatest')
+def my_function():
+   print( f" my world")
+   return 'hello'
 
 
 
