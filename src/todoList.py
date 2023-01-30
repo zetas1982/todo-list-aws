@@ -24,7 +24,7 @@ def get_table(dynamodb=None):
 
 def my_function():
    print( f" my world")
-   return 'hello'
+   
 
 
 
