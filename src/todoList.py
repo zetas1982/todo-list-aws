@@ -25,8 +25,10 @@ def get_table(dynamodb=None):
 def pruebatest(self):    
     print ('---------------------')
     print ('Start: pruebatest')
-    backup = self.dynamodb    
-    self.dynamodb = None
+    from src.todoList import put_item   
+    response = get_table(None)
+    print ('Response response:' + str(response))
+    print ('End: pruebatest')
 
 
 
