@@ -22,6 +22,14 @@ def get_table(dynamodb=None):
     return table
 
 
+def pruebatest(self):    
+    print ('---------------------')
+    print ('Start: pruebatest')
+    backup = self.dynamodb    
+    self.dynamodb = None
+
+
+
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
     try:
