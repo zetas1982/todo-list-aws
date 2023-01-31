@@ -1,12 +1,13 @@
+# from pprint import pprint
 import warnings
 import unittest
 import boto3
-from moto import mock_dynamodb
+from moto import mock_dynamodb2
 import sys
 import os
 import json
 
-@mock_dynamodb
+@mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         print ('---------------------')
@@ -198,10 +199,27 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
-       
-   
+
+    def test_get_table(self):
+        print ('---------------------')
+        print ('Start: test_get_table')
+        from src.todoList import get_table
+        tableName = os.environ['DYNAMODB_TABLE'];
+        table = get_table()
+        # check if the table name is 'ToDo'
+        self.assertIn(tableName, table.name)
+        print ('End: test_get_table')
         
-if __name__ == '__main__':
-    unittest.main()
+    def test_get_translation_todo(self):
+        print ('---------------------')
+        print ('Start: test_get_translation_todo')
+
+        from src.todoList import get_translation
+
+        translation = get_translation(self.text, "en")
+        self.assertEqual(self.text, "Learn DevOps and Cloud at UNIR")
+        print ('End: test_get_translation_todo')
+
+
 if __name__ == '__main__':
     unittest.main()
