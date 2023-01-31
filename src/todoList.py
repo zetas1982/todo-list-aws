@@ -11,7 +11,7 @@ def get_table(dynamodb=None):
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
-            print('URL dynamoDB:'+URL)
+            print('URL dynamoDB:' + URL)
             boto3.client = functools.partial(boto3.client, endpoint_url=URL)
             boto3.resource = functools.partial(boto3.resource,
                                                endpoint_url=URL)
@@ -33,12 +33,19 @@ def get_item(key, dynamodb=None):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print('Result getItem:'+str(result))
+        print('Result getItem:' + str(result))
         if 'Item' in result:
             return result['Item']
 
 
 def get_items(dynamodb=None):
+    table = get_table(dynamodb)
+    # fetch todo from the database
+    result = table.scan()
+    return result['Items']
+
+
+def get_items_order(dynamodb=None):
     table = get_table(dynamodb)
     # fetch todo from the database
     result = table.scan()
@@ -81,12 +88,12 @@ def update_item(key, text, checked, dynamodb=None):
                 'id': key
             },
             ExpressionAttributeNames={
-              '#todo_text': 'text',
+                '#todo_text': 'text',
             },
             ExpressionAttributeValues={
-              ':text': text,
-              ':checked': checked,
-              ':updatedAt': timestamp,
+                ':text': text,
+                ':checked': checked,
+                ':updatedAt': timestamp,
             },
             UpdateExpression='SET #todo_text = :text, '
                              'checked = :checked, '
