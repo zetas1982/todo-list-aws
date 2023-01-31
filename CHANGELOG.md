@@ -12,3 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Se realiza un git push -f origin Develop
 - Da algun error para ello lo que se ha realizado ha sido un git -f origin develop
+-
+### 31/01/2023
+
+Se realiza el merge
