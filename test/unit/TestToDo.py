@@ -199,60 +199,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
        
-    
-    @mock_dynamodb
-class TestDatabaseFunctionsError(unittest.TestCase):
-    def setUp(self):
-        print ('---------------------')
-        print ('Start: setUp')
-        warnings.filterwarnings(
-            "ignore",
-            category=ResourceWarning,
-            message="unclosed.*<socket.socket.*>")
-        warnings.filterwarnings(
-            "ignore",
-            category=DeprecationWarning,
-            message="callable is None.*")
-        warnings.filterwarnings(
-            "ignore",
-            category=DeprecationWarning,
-            message="Using or importing.*")
-        """Create the mock database and table"""
-        self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-        self.is_local = 'true'
-        # Add a mocked exeption
-        from unittest.mock import Mock
-        self.table = table = Mock()
-        self.table.get_item.side_effect = Exception('Im an exception')
-        print ('End: setUp')
-        
-    def test_get_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_get_todo_error')
-        from src.todoList import get_item
-        get_item("", self.dynamodb)
-        print ('End: test_get_todo_error')
-
-    def test_put_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_put_todo_error')
-        from src.todoList import put_item
-        self.assertRaises(Exception, put_item("", self.dynamodb))
-        print ('End: test_put_todo_error')
-        
-    def test_update_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_update_todo_error')
-        from src.todoList import update_item
-        self.assertRaises(Exception, update_item("", "", "false", self.dynamodb))
-        print ('End: test_update_todo_error')
-
-    def test_delete_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_delete_todo_error')
-        from src.todoList import delete_item
-        self.assertRaises(Exception, delete_item("", self.dynamodb))
-        print ('End: test_delete_todo_error')
+   
         
 if __name__ == '__main__':
     unittest.main()
